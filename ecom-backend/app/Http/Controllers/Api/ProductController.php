@@ -48,7 +48,7 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'stock' => 'required|integer',
             'category_id' => 'required|exists:categories,id',
-            'image_url' => 'nullable|url',
+            'image_url' => 'nullable',
         ]);
 
 
@@ -57,8 +57,15 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->stock = $request->stock;
         $product->description = $request->description;
-        $product->image_url = $request->image_url;
+        // $product->image_url = $request->image_url;
         $product->category_id = $request->category_id;
+        if ($request->hasFile('image_url')) {
+            $file = $request->file('image_url');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads'), $filename);
+            $product->image_url = 'uploads/' . $filename;
+        }
+
 
         if ($product->save()) {
             return response()->json(
@@ -126,13 +133,16 @@ class ProductController extends Controller
             'description' => 'nullable|string',
             'price' => 'sometimes|required|numeric',
             'stock' => 'sometimes|required|integer',
-            'category_id' => 'sometimes|required|exists:categories,id', // Ensure the category exists
-            'image_url' => 'nullable|url',
+            'category_id' => 'sometimes|required|exists:categories,id',
+            'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // Update the product fields that are present in the request
         if ($request->has('name')) {
             $product->name = $request->name;
+        }
+
+        if ($request->has('description')) {
+            $product->description = $request->description;
         }
 
         if ($request->has('price')) {
@@ -143,21 +153,19 @@ class ProductController extends Controller
             $product->stock = $request->stock;
         }
 
-        if ($request->has('description')) {
-            $product->description = $request->description;
-        }
-
-        if ($request->has('image_url')) {
-            $product->image_url = $request->image_url;
-        }
-
         if ($request->has('category_id')) {
-            // Ensure the category exists before updating
             $product->category_id = $request->category_id;
         }
 
+        if ($request->hasFile('image_url')) {
+            $file = $request->file('image_url');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads'), $filename);
+            $product->image_url = 'uploads/' . $filename;
+        }
+
         // Save the updated product to the database
-        if ($product->save()) {
+        if ($product->update()) {
             return response()->json([
                 'message' => 'Product updated successfully',
                 'product' => $product

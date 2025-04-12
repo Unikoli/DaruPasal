@@ -47,11 +47,11 @@ Route::middleware('auth:sanctum')->group(function () {
     //only for admin
     Route::middleware('admin')->group(function () {
         Route::post('/admin/categories', [CategoryController::class, 'store']);
-        Route::put('/admin/categories/{id}', [CategoryController::class, 'update']);
+        Route::post('/admin/categories/{id}', [CategoryController::class, 'update']);
         Route::delete('/admin/categories/{id}', [CategoryController::class, 'destroy']);
 
         Route::post('/admin/products', [ProductController::class, 'store']);
-        Route::put('/admin/products/{id}', [ProductController::class, 'update']);
+        Route::post('/admin/products/{id}', [ProductController::class, 'update']);
         Route::delete('/admin/products/{id}', [ProductController::class, 'destroy']);
     });
 });

@@ -134,7 +134,7 @@ class ProductController extends Controller
             'price' => 'sometimes|required|numeric',
             'stock' => 'sometimes|required|integer',
             'category_id' => 'sometimes|required|exists:categories,id',
-            'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image_url' => 'nullable',
         ]);
 
         if ($request->has('name')) {

@@ -1,0 +1,165 @@
+// src/pages/Login.jsx
+// import { motion } from "framer-motion"
+// import { Link } from "react-router-dom"
+
+// export default function Login() {
+//   return (
+//     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-amber-100 to-yellow-200">
+//       <motion.div
+//         initial={{ opacity: 0, y: 40 }}
+//         animate={{ opacity: 1, y: 0 }}
+//         transition={{ duration: 0.6 }}
+//         className="bg-white p-10 rounded-xl shadow-xl w-full max-w-md"
+//       >
+//         <h2 className="text-3xl font-bold mb-6 text-center text-red-700">Welcome Back 👋</h2>
+
+//         <form className="space-y-4">
+//           <input
+//             type="text"
+//             placeholder="Username"
+//             className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-400 transition"
+//           />
+//           <input
+//             type="email"
+//             placeholder="Email"
+//             className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-400 transition"
+//           />
+//           <input
+//             type="password"
+//             placeholder="Password"
+//             className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-400 transition"
+//           />
+
+//           <button
+//             type="submit"
+//             className="w-full bg-red-600 text-white py-3 rounded hover:bg-red-700 transition-all font-semibold"
+//           >
+//             Login
+//           </button>
+//         </form>
+
+//         <p className="text-center text-sm mt-6">
+//           Don’t have an account?{" "}
+//           <Link to="/signup" className="text-red-600 font-semibold hover:underline">
+//             Sign Up
+//           </Link>
+//         </p>
+//       </motion.div>
+//     </div>
+//   )
+// }
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+export default function Login() {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setSuccess("");
+    setLoading(true);
+
+    try {
+      const response = await fetch("http://localhost:8000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+      setLoading(false);
+
+      if (response.ok) {
+        setSuccess("Login successful!");
+        localStorage.setItem("token", data.token); // store token if needed
+        localStorage.setItem("user", JSON.stringify(data.user));
+        // setTimeout(() => {
+        //     navigate("/");
+        //     window.location.reload(); // 👈 Force reload after navigating
+        //   }, 2000); // redirect to homepage
+
+        setTimeout(() => {
+            if (data.user.role === "admin") {
+              window.location.href = "/admin/dashboard"; // refreshes the page too
+            } else {
+              window.location.href = "/"; // for normal users
+            }
+          }, 1000);
+        
+      } else {
+        setError(data.message || "Login failed");
+      }
+    } catch (err) {
+      setLoading(false);
+      setError("Something went wrong. Please try again.");
+    }
+  };
+
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-rose-100 to-yellow-100">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-8 rounded-lg shadow-xl w-full max-w-md space-y-4 animate-fade-in"
+      >
+        <h2 className="text-2xl font-bold text-center text-red-600">Login to Your Account</h2>
+
+        {loading && (
+          <p className="text-blue-500 text-sm text-center animate-pulse">Logging in...</p>
+        )}
+        {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+        {success && (
+          <p className="text-green-500 text-sm text-center animate-bounce">
+            {success}
+          </p>
+        )}
+
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
+          className="w-full border border-gray-300 rounded px-4 py-2 focus:ring-2 focus:ring-red-400"
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={handleChange}
+          className="w-full border border-gray-300 rounded px-4 py-2 focus:ring-2 focus:ring-red-400"
+          required
+        />
+        <button
+          type="submit"
+          className={`w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded transition duration-300 ${
+            loading ? "opacity-70 cursor-not-allowed" : ""
+          }`}
+          disabled={loading}
+        >
+          {loading ? "Logging in..." : "Login"}
+        </button>
+
+        <p className="text-sm text-center">
+          Don’t have an account?{" "}
+          <a href="/signup" className="text-red-600 hover:underline">
+            Sign up
+          </a>
+        </p>
+      </form>
+    </div>
+  );
+}

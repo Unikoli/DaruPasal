@@ -59,7 +59,16 @@ class CartController extends Controller
 
     public function clear()
     {
-        ShoppingCart::where('user_id', Auth::id())->delete();
-        return response()->json(['message' => 'Cart cleared']);
+        $cart=ShoppingCart::where('user_id', Auth::id())->delete();
+        
+        if($cart>0)
+        {
+            return response()->json(['message' => 'Cart cleared']);
+
+        }
+        else
+        {
+            return response()->json(['message'=>'no products availabe in the cart']);
+        }
     }
 }

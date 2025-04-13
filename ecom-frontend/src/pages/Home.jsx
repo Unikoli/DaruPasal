@@ -1,4 +1,5 @@
 
+import Footer from "../components/Footer";
 import SummerProductList from "../components/SummerProductList";
 import WinterProductList from "../components/WinterProductList";
 // import ProductList from "../components/ProductList";
@@ -34,6 +35,7 @@ export default function Home() {
       <SummerProductList/>
       <h1>winter special</h1>
       <WinterProductList/>
+      <Footer/>
         </>
       
     )

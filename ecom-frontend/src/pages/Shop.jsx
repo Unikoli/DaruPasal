@@ -1,9 +1,11 @@
+import Footer from "../components/Footer";
 import ProductList from "../components/ProductList";
 import Sidebar from "../components/SideBar";
 
 export default function Shop() {
   return (
-    <div className="bg-white py-8">
+   <>
+     <div className="bg-white py-8">
       <div className="flex max-w-screen-xl mx-auto px-4">
         {/* Sidebar - pushed to left naturally */}
         <aside className="w-90 bg-gray-100 p-[1px] shadow-md rounded-md">
@@ -22,5 +24,7 @@ export default function Shop() {
         </main>
       </div>
     </div>
+    <Footer/>
+   </>
   );
 }

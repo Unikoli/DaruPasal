@@ -26,11 +26,13 @@ export default function SummerProductList() {
         {products.map((product) => (
           <div key={product.id} className="px-2">
             <ProductCard
-              image={product.image_url}
+              // image={product.image_url}
+              image={`http://localhost:8000/${product.image_url}`}
               title={product.name}
               price={product.price}
               rating={product.rating || 4}
               reviews={product.reviews_count || 20}
+              product={product}
             />
           </div>
         ))}

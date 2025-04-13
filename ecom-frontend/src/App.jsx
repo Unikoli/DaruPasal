@@ -12,36 +12,61 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import { useEffect, useState } from 'react'
+import { useAuth } from './context/AuthContext'
+import { ToastContainer } from 'react-toastify'
 
-export default function App() {
-  // const [user, setUser] = useState(null); // Replace with real user authentication logic
+// ✅ get the user
 
-  // useEffect(() => {
-  //   // Check if the user is logged in and retrieve their role
-  //   const loggedInUser = JSON.parse(localStorage.getItem('user')); // Example: user data stored in localStorage
-  //   if (loggedInUser) {
-  //     setUser(loggedInUser);
-  //   }
-  // }, []);
-  return (
-    <>
-      <Navbar />
-      {/* {user && user.role !== 'admin' && <Navbar />} */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/shop" element={<Shop />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
+  // return (
+  //   <>
+  //     <Navbar />
+  //     {/* {user && user.role !== 'admin' && <Navbar />} */}
+  //     <Routes>
+  //       <Route path="/" element={<Home />} />
+  //       <Route path="/shop" element={<Shop />} />
+  //       <Route path="/cart" element={<Cart />} />
+  //       <Route path="/about" element={<About />} />
+  //       <Route path="/contact" element={<Contact />} />
 
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+  //       <Route path="/login" element={<Login />} />
+  //       <Route path="/signup" element={<Signup />} />
 
 
 
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+  //       <Route path="/admin/dashboard" element={<AdminDashboard />} />
 
-      </Routes>
-    </>
-  )
-}
+  //     </Routes>
+  //   </>
+  // )
+  export default function App() {
+    const { user } = useAuth(); // ✅ get the user
+  
+    return (
+      <>
+        {/* Add ToastContainer at the root level */}
+        <ToastContainer />
+        {/* Show Navbar only if user is not admin, or not logged in yet */}
+        {!user || user.role !== 'admin' ? <Navbar /> : null}
+  
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+  
+          {/* ✅ Optional: Protect this route so only admin sees it */}
+          {/* {user && user.role === 'admin' && (
+            <Route path="/admin/dashboard" element={<AdminDashboard/>} />
+          )} */}
+
+    <Route path="/admin/dashboard" element={<AdminDashboard />} />
+
+
+        </Routes>
+      </>
+    )
+  }
+

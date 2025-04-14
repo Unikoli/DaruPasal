@@ -18,6 +18,7 @@ import Categories from "./pages/admin/pages/Categories";
 import Products from "./pages/admin/pages/Products";
 import AddCategory from "./pages/admin/pages/category/AddCategory";
 import EditCategory from "./pages/admin/pages/category/EditCategory";
+import AddProduct from "./pages/admin/pages/product/AddProduct";
 
 export default function App() {
   return (
@@ -122,6 +123,14 @@ export default function App() {
           element={
             <AdminLayout>
               <AddCategory/>
+            </AdminLayout>
+          }
+        />
+         <Route
+          path="/admin/add-product"
+          element={
+            <AdminLayout>
+              <AddProduct/>
             </AdminLayout>
           }
         />

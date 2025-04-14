@@ -34,7 +34,7 @@ export default function Home() {
       <h1>Summer Special</h1>
       <SummerProductList/>
       <h1>winter special</h1>
-      <WinterProductList/>
+      {/* <WinterProductList/> */}
       <Footer/>
         </>
       

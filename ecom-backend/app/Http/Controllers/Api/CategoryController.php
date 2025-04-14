@@ -28,7 +28,8 @@ class CategoryController extends Controller
         else
         {
             return response()->json([
-                'message' => 'Failed to create Category '
+                'message' => 'Failed to create Category ',
+                'error'=>'cannot be created!!!!'
             ]);
 
         }

@@ -219,6 +219,7 @@ export default function Navbar() {
         },
       });
 
+      
       if (res.ok) {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
@@ -240,7 +241,7 @@ export default function Navbar() {
     <header className="flex items-center justify-between px-8 py-4 shadow-md bg-white sticky top-0 z-50">
       {/* Logo */}
       <div className="flex items-center space-x-2">
-        <img src="/public/darupasal_logo.png" alt="Logo" className="w-12 h-12 rounded-full" />
+        <img src="/darupasal_image.png" alt="Logo" className="w-12 h-12 rounded-full" />
         <span className="text-xl font-bold">Daru Pasal</span>
       </div>
 

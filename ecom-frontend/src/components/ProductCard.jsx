@@ -315,7 +315,7 @@
 // }
 import { FiMinus, FiPlus, FiShoppingCart } from "react-icons/fi";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify"; // Importing toastify for toast notifications
 import "react-toastify/dist/ReactToastify.css"; // Importing styles for toastify
 
@@ -380,6 +380,25 @@ export default function ProductCard({ image, title, price, rating, reviews, prod
       alert("Something went wrong.");
     }
   };
+  // const handleImageClick=async()=>{
+  //   const token = localStorage.getItem("token");
+
+  //   try {
+  //     const response = await fetch("http://localhost:8000/api/products/${id}", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //       body: JSON.stringify({
+  //         product_id: productId,
+  //         quantity: quantity,
+  //       }),
+  //     });
+  //   } catch (error) {
+      
+  //   }
+  // }
 
   useEffect(() => {
     console.log("🔍 Loaded product:", product);
@@ -388,11 +407,14 @@ export default function ProductCard({ image, title, price, rating, reviews, prod
   return (
     <div className="bg-white rounded-xl shadow-md p-4 w-full max-w-xs transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg relative">
       {/* Product Image */}
+     
+      <Link to={`/product/${product.id}`}>
       <img
         src={image || "/default-image.jpg"}
         alt={title}
-        className="w-full h-60 object-contain mb-4"
+        className="w-full h-60 object-contain mb-4 cursor-pointer"
       />
+      </Link>
 
       {/* Product Details */}
       <h2 className="text-md font-medium text-gray-800">{title}</h2>

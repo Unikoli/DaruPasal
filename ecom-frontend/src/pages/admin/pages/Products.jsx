@@ -1,0 +1,67 @@
+import React, { useEffect, useState } from "react";
+import { Plus, Edit, Trash2 } from "lucide-react";
+
+export default function Products() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch("http://localhost:8000/api/products");
+        const data = await res.json();
+        setProducts(data);
+      } catch (err) {
+        console.error("Error fetching products:", err);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  return (
+    <div className="flex min-h-screen bg-gray-100">
+      
+      <main className="flex-1 p-6 mt-16 md:mt-0">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-3xl font-semibold">Manage Products</h2>
+          <button className="flex items-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
+            <Plus className="mr-2" size={18} />
+            Add Product
+          </button>
+        </div>
+
+        {/* Table of Products */}
+        <div className="bg-white shadow rounded overflow-x-auto">
+          <table className="w-full text-left table-auto">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="p-4">Name</th>
+                <th className="p-4">Price</th>
+                <th className="p-4">Category</th>
+                <th className="p-4 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {products.map((product) => (
+                <tr key={product.id} className="border-t">
+                  <td className="p-4">{product.name}</td>
+                  <td className="p-4">Rs. {product.price}</td>
+                  <td className="p-4">{product.category?.name || "—"}</td>
+                  <td className="p-4 text-right space-x-2">
+                    <button className="inline-flex items-center px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-100">
+                      <Edit size={16} className="mr-1" />
+                      Edit
+                    </button>
+                    <button className="inline-flex items-center px-3 py-1 text-sm border border-red-500 text-red-500 rounded hover:bg-red-100">
+                      <Trash2 size={16} className="mr-1" />
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+  );
+}

@@ -18,13 +18,28 @@ class ProductController extends Controller
         return response()->json(Product::with('category')->get());
     }
     //display product by id
-    public function show($id)
-    {
-        $product = Product::find($id);
-        if (!$product) return response()->json(['message' => 'Product not found'], 404);
+    // public function show($id)
+    // {
+    //     $product = Product::find($id);
+    //     if (!$product) return response()->json(['message' => 'Product not found'], 404);
 
-        return response()->json($product);
+    //     // Extract category name using the relationship
+    // $product->category_name = $product->category->name ?? 'Unknown';
+    //     return response()->json($product);
+    // }
+    // Controller
+public function show($id)
+{
+    $product = Product::find($id);
+
+    if (!$product) {
+        return response()->json(['message' => 'Product not found'], 404);
     }
+        // $product->category_name = $product->category->name ?? 'Unknown';
+
+    return response()->json($product); // category_name will be auto-included
+}
+
     // Display products by category
     public function productsByCategory($categoryId)
     {
@@ -49,6 +64,9 @@ class ProductController extends Controller
             'stock' => 'required|integer',
             'category_id' => 'required|exists:categories,id',
             'image_url' => 'nullable',
+            'volume' => 'nullable',
+            'alcohol' => 'nullable',
+            'country' => 'nullable',
         ]);
 
 
@@ -56,6 +74,9 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->price = $request->price;
         $product->stock = $request->stock;
+        $product->volume = $request->volume;
+        $product->country = $request->country;
+        $product->alcohol = $request->alcohol;
         $product->description = $request->description;
         // $product->image_url = $request->image_url;
         $product->category_id = $request->category_id;
@@ -151,6 +172,15 @@ class ProductController extends Controller
 
         if ($request->has('stock')) {
             $product->stock = $request->stock;
+        }
+        if ($request->has('volume')) {
+            $product->volume = $request->volume;
+        }
+        if ($request->has('country')) {
+            $product->country = $request->country;
+        }
+        if ($request->has('alcohol')) {
+            $product->alcohol = $request->alcohol;
         }
 
         if ($request->has('category_id')) {

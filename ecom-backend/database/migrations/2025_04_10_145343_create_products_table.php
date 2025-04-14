@@ -17,6 +17,9 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->decimal('price', 8, 2);
             $table->integer('stock');
+            $table->integer('volume')->nullable();
+            $table->string('country')->nullable();
+            $table->integer('alcohol')->nullable();
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->string('image_url')->nullable();
             $table->timestamps();

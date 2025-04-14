@@ -36,7 +36,7 @@ export default function Categories() {
 
             if (res.ok) {
                 toast.success("Category deleted successfully!");
-                
+
                 // Remove the category from local state
                 setCategories((prev) => prev.filter((cat) => cat.id !== id));
             } else {
@@ -75,14 +75,22 @@ export default function Categories() {
                         <tr key={category.id} className="border-t">
                             <td className="p-4">{category.category_name}</td>
                             <td className="p-4 text-right space-x-2">
-                                <button
+                                {/* <button
                                     // onClick={() => navigate(`/admin/edit-category/${category.id}`)}
 
                                     className="inline-flex items-center px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-100"
                                 >
                                     <Edit size={16} className="mr-1" />
                                     Edit
+                                </button> */}
+                                <button
+                                    onClick={() => navigate(`/admin/edit-category/${category.id}`)}
+                                    className="inline-flex items-center px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-100"
+                                >
+                                    <Edit size={16} className="mr-1" />
+                                    Edit
                                 </button>
+
 
                                 <button
                                     onClick={() => handleDeleteCategory(category.id)}

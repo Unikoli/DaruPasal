@@ -19,6 +19,7 @@ import Products from "./pages/admin/pages/Products";
 import AddCategory from "./pages/admin/pages/category/AddCategory";
 import EditCategory from "./pages/admin/pages/category/EditCategory";
 import AddProduct from "./pages/admin/pages/product/AddProduct";
+import EditProduct from "./pages/admin/pages/product/EditProduct";
 
 export default function App() {
   return (
@@ -131,6 +132,14 @@ export default function App() {
           element={
             <AdminLayout>
               <AddProduct/>
+            </AdminLayout>
+          }
+        />
+         <Route
+          path="/admin/edit-product/:id"
+          element={
+            <AdminLayout>
+              <EditProduct/>
             </AdminLayout>
           }
         />

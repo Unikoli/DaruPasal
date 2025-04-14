@@ -38,10 +38,14 @@ export default function Products() {
                 console.log('deleted successfully!!');
                 setProducts((prev) => prev.filter((product) => product.id !== id));
                 toast.success("Category deleted successfully!");
+              }
+              else
+              {
+                console.error("Failed to delete products");
               }     
         
     } catch (error) {
-        
+        console.error("Error deleting product:", err);
     }
   }
 
@@ -78,7 +82,9 @@ export default function Products() {
                   <td className="p-4">Rs. {product.price}</td>
                   <td className="p-4">{product.category?.name || "category name"}</td>
                   <td className="p-4 text-right space-x-2">
-                    <button className="inline-flex items-center px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-100">
+                    <button className="inline-flex items-center px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-100"
+                        onClick={()=>navigate(`/admin/edit-product/${product.id}`)}
+                    >
                       <Edit size={16} className="mr-1" />
                       Edit
                     </button>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\EsewaController;
 use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +44,15 @@ Route::middleware('auth:sanctum')->group(function () {
      Route::put('/cart/{product_id}', [CartController::class, 'update']);
      Route::delete('/cart/clear', [CartController::class, 'clear']);
      Route::delete('/cart/{product_id}', [CartController::class, 'destroy']);
+
+     //esewa payment
+     Route::post('/esewa/prepare', [EsewaController::class, 'preparePayment']);
+     Route::get('/esewa/success', [EsewaController::class, 'success'])->name('esewa.success');
+     Route::get('/esewa/failure', [EsewaController::class, 'failure'])->name('esewa.failure');
+ 
+     //order
+     Route::get('/user/orders', [EsewaController::class, 'userOrders']);
+     Route::get('/admin/orders', [EsewaController::class, 'adminOrders']); // Use admin middleware if needed
 
     //only for admin
     Route::middleware('admin')->group(function () {

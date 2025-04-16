@@ -108,7 +108,7 @@ const handleSubmit = async (e) => {
         toast.error(errorData.message || "Failed to add product");
       }
     } catch (err) {
-      console.error("Error:", err);
+      console.error("Error: has been occured!!!!", err);
       toast.error("An error occurred while adding the product.");
     } finally {
       setLoading(false);

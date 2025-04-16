@@ -3,13 +3,15 @@
 import React, { useEffect, useState } from 'react';
 import { TrashIcon } from '@heroicons/react/24/outline';
 import Footer from '../components/Footer';
+import { useNavigate } from 'react-router-dom';
+
 
 
 const Cart = () => {
-  
+  const navigate=useNavigate();
   const [cartItems, setCartItems] = useState([]);
   const [coupon, setCoupon] = useState('');
-
+  const [quantity,setQuantity]=useState();
   useEffect(() => {
     fetchCart();
   }, []);
@@ -28,6 +30,11 @@ const Cart = () => {
 
       if (response.ok) {
         const data = await response.json();
+        let totalQuantity = 0;
+        data.forEach(item => {
+          totalQuantity += item.quantity;
+        });
+        setQuantity(totalQuantity);
         console.log('Cart Items:', data);
         setCartItems(data);
       } else {
@@ -201,6 +208,10 @@ const Cart = () => {
       {/* Cart Totals */}
       <div className="max-w-md ml-auto border p-6 rounded-md">
         <h2 className="text-xl font-bold mb-4">Cart totals</h2>
+        <div className="flex justify-between">
+          <span>Number of items </span>
+          <span>{quantity}</span>
+        </div>
         <div className="flex justify-between mb-2">
           <span className="font-semibold">Subtotal</span>
           <span>Rs {total}</span>
@@ -209,7 +220,9 @@ const Cart = () => {
           <span>Total</span>
           <span>Rs {total}</span>
         </div>
-        <button className="mt-6 w-full bg-red-700 text-white py-2 font-semibold">
+        <button className="mt-6 w-full bg-red-700 text-white py-2 font-semibold"
+        onClick={()=>navigate('/shipping-form')}
+        >
           PROCEED TO CHECKOUT →
         </button>
       </div>

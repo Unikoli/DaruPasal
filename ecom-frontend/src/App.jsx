@@ -20,6 +20,7 @@ import AddCategory from "./pages/admin/pages/category/AddCategory";
 import EditCategory from "./pages/admin/pages/category/EditCategory";
 import AddProduct from "./pages/admin/pages/product/AddProduct";
 import EditProduct from "./pages/admin/pages/product/EditProduct";
+import ShippingForm from "./pages/ShippinForm";
 
 export default function App() {
   return (
@@ -89,6 +90,15 @@ export default function App() {
             <>
               <Navbar />
               <Signup />
+            </>
+          }
+        />
+        <Route
+          path="/shipping-form"
+          element={
+            <>
+              <Navbar />
+              <ShippingForm />
             </>
           }
         />

@@ -46,4 +46,9 @@ class User extends Authenticatable
     public function ShoppingCarts() {
     return $this->hasMany(ShoppingCart::class);
 }
+// User can have many orders
+public function orders()
+{
+    return $this->hasMany(Order::class);
+}
 }

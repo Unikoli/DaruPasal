@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { toast } from "react-toastify";
-import { exportOrdersToPDF, exportOrdersToExcel } from "../../../utils/exportUtils";
+import { exportOrdersToExcel } from "../../../utils/exportUtils";
 
 
 Modal.setAppElement("#root");
@@ -110,9 +110,6 @@ export default function Orders() {
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <div className="flex justify-end gap-4 mb-4">
-  {/* <button onClick={() => exportOrdersToPDF(orders)} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
-    Export to PDF
-  </button> */}
   <button onClick={() => exportOrdersToExcel(orders)} className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
     Export to Excel
   </button>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -28,17 +29,17 @@ class ProductController extends Controller
     //     return response()->json($product);
     // }
     // Controller
-public function show($id)
-{
-    $product = Product::find($id);
-
-    if (!$product) {
-        return response()->json(['message' => 'Product not found'], 404);
+    public function show($id)
+    {
+        $product = Product::with('category')->find($id);
+    
+        if (!$product) {
+            return response()->json(['message' => 'Product not found'], 404);
+        }
+    
+        return response()->json($product);
     }
-        // $product->category_name = $product->category->name ?? 'Unknown';
-
-    return response()->json($product); // category_name will be auto-included
-}
+    
 
     // Display products by category
     public function productsByCategory($categoryId)

@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::table('payments', function (Blueprint $table) {
             $table->foreignId('order_id')->nullable()->constrained()->onDelete('cascade');
-
         });
     }
 

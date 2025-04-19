@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('amount');
             $table->integer('tax_amount');
             $table->integer('total_amount');
-            $table->string('status')->default('pending');
+            $table->string('status')->default('complete');
             $table->timestamps();
         });
     }

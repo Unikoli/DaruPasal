@@ -10,6 +10,7 @@ export default function AdminSidebar() {
     { label: "Dashboard", icon: <LayoutDashboard size={18} />, path: "/admin/dashboard" },
     { label: "Products", icon: <Package size={18} />, path: "/admin/products" },
     { label: "Categories", icon: <List size={18} />, path: "/admin/categories" },
+    { label: "orders", icon: <List size={18} />, path: "/admin/orders" },
   ];
 
   return (

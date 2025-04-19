@@ -21,6 +21,8 @@ import EditCategory from "./pages/admin/pages/category/EditCategory";
 import AddProduct from "./pages/admin/pages/product/AddProduct";
 import EditProduct from "./pages/admin/pages/product/EditProduct";
 import ShippingForm from "./pages/ShippinForm";
+import Orders from "./pages/admin/pages/Orders";
+import PaymentSuccess from "./pages/Paymentsuccess";
 
 export default function App() {
   return (
@@ -45,6 +47,15 @@ export default function App() {
             <>
               <Navbar />
               <Shop />
+            </>
+          }
+        />
+        <Route
+          path="/payment/success"
+          element={
+            <>
+              <Navbar />
+              <PaymentSuccess />
             </>
           }
         />
@@ -118,6 +129,14 @@ export default function App() {
           element={
             <AdminLayout>
               <Categories />
+            </AdminLayout>
+          }
+        />
+        <Route
+          path="/admin/orders"
+          element={
+            <AdminLayout>
+              <Orders />
             </AdminLayout>
           }
         />

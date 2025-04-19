@@ -99,7 +99,7 @@ class EsewaController extends Controller
         // Create an order
         $order = Order::create([
             'user_id' => $user->id,
-            'status' => 'pending',
+            'status' => 'complete',
         ]);
 
         // Loop through each product in the cart and process it
@@ -164,110 +164,106 @@ class EsewaController extends Controller
     /**
      * Handle eSewa payment success callback
      */
+    // public function success(Request $request)
+    // {
+    //     if (!$request->has('data')) {
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => 'Missing data parameter in callback.',
+    //         ], 400);
+    //     }
+
+    //     try {
+    //         $decoded = base64_decode($request->data);
+    //         $data = json_decode($decoded, true);
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => 'Failed to decode data.',
+    //             'error' => $e->getMessage(),
+    //         ], 400);
+    //     }
+
+    //     if (!isset($data['status']) || strtoupper($data['status']) !== 'COMPLETE') {
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => 'Invalid or incomplete payment.',
+    //             'raw_data' => $data
+    //         ], 400);
+    //     }
+
+    //     // Find the payment by transaction UUID only (not by status)
+    //     $payment = Payment::where('transaction_uuid', $data['transaction_uuid'])->first();
+
+    //     if (!$payment) {
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => 'Payment record not found.'
+    //         ], 404);
+    //     }
+
+    //     if (strtolower($payment->status) === 'complete') {
+    //         return response()->json([
+    //             'success' => true,
+    //             'message' => 'Payment already completed.',
+    //             'data' => $payment
+    //         ], 400);
+    //     }
+
+    //     // Update payment and associated order
+    //     $payment->status = 'completed';
+    //     $payment->save();
+
+    //     if ($payment->order) {
+    //         $payment->order->status = 'completed';
+    //         $payment->order->save();
+    //     }
+
+    //     return response()->json([
+    //         'success' => true,
+    //         'message' => 'Payment marked as complete.',
+    //         'data' => $payment
+    //     ]);
+    // }
     public function success(Request $request)
     {
-
         if (!$request->has('data')) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Missing data parameter in callback.',
-            ], 400);
+            return redirect()->to('http://localhost:5173/payment/error'); // or show error page
         }
 
         try {
             $decoded = base64_decode($request->data);
             $data = json_decode($decoded, true);
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to decode data.',
-                'error' => $e->getMessage(),
-            ], 400);
+            return redirect()->to('http://localhost:5173/payment/error');
         }
 
-        if (!isset($data['status']) || $data['status'] !== 'COMPLETE') {
-            return response()->json([
-                'success' => false,
-                'message' => 'Invalid or incomplete payment.',
-                'raw_data' => $data
-            ], 400);
-        }
-
-        // proceed as normal...
-
-
-        $decoded = base64_decode($request->data);
-        $data = json_decode($decoded, true);
-
-        if (!isset($data['status']) || $data['status'] !== 'COMPLETE') {
-            return response()->json([
-                'success' => false,
-                'message' => 'Invalid or incomplete payment.'
-            ], 404);
+        if (!isset($data['status']) || strtoupper($data['status']) !== 'COMPLETE') {
+            return redirect()->to('http://localhost:5173/payment/error');
         }
 
         $payment = Payment::where('transaction_uuid', $data['transaction_uuid'])->first();
 
         if (!$payment) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Payment record not found.'
-            ], 404);
+            return redirect()->to('http://localhost:5173/payment/error');
         }
 
-        if ($payment->status === 'complete') {
-            return response()->json([
-                'success' => true,
-                'message' => 'Payment already completed.',
-                'data' => $payment
-            ], 400);
+        if (strtolower($payment->status) === 'pending') {
+            return redirect()->to('http://localhost:5173/payment/success');
         }
 
-        // $payment->update(['status' => 'complete']);
-        // $payment->order->update(['status' => 'completed']);
-        // Update the payment status using the `save()` method
-        // $payment->status = 'complete';
-        // $payment->save();  // This will update the payment in the database
-
-        // // Update the order status using the `save()` method on the related order model
-        // $payment->order->status = 'completed';
-        // $payment->order->save();  // This will update the related order status
-        // Update the payment status using DB query builder
-        // DB::table('payments')
-        //     ->where('id', $payment->id)
-        //     ->update(['status' => 'complete']);
-
-        // // Update the related order status using DB query builder
-        // DB::table('orders')
-        //     ->where('id', $payment->order_id)
-        //     ->update(['status' => 'completed']);
-           // Update the payment status using updateOrCreate (conditional update)
-    
-
-        //    $payment->status = 'complete';
-        //    $payment->save();
-           
-        //    $order = $payment->order;
-        //    $order->status = 'completed';
-        //    $order->save();
-        $payment->status = 'complete';
+        $payment->status = 'completed';
         $payment->save();
-        
+
         if ($payment->order) {
             $payment->order->status = 'completed';
             $payment->order->save();
-        } else {
-            Log::error('Order not found for payment ID: ' . $payment->id);
         }
-        
-   
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Payment completed successfully.',
-            'data' => $payment
-        ], 400);
+        // ✅ Final redirect to React success page
+        return redirect()->to('http://localhost:5173/payment/success');
     }
+
 
     /**
      * Handle eSewa payment failure
@@ -286,7 +282,7 @@ class EsewaController extends Controller
     public function userOrders()
     {
         $orders = Auth::user()
-            ->order()
+            ->orders()
             ->with(['items.product', 'payment'])
             ->latest()
             ->get();
@@ -294,20 +290,6 @@ class EsewaController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Fetched your orders.',
-            'data' => $orders
-        ]);
-    }
-
-    /**
-     * Admin route to view all orders
-     */
-    public function adminOrders()
-    {
-        $orders = Order::with(['user', 'items.product', 'payment'])->latest()->get();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Fetched all orders.',
             'data' => $orders
         ]);
     }

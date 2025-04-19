@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CategoryController;
@@ -52,7 +53,6 @@ Route::middleware('auth:sanctum')->group(function () {
  
      //order
      Route::get('/user/orders', [EsewaController::class, 'userOrders']);
-     Route::get('/admin/orders', [EsewaController::class, 'adminOrders']); // Use admin middleware if needed
 
     //only for admin
     Route::middleware('admin')->group(function () {
@@ -63,5 +63,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/admin/products', [ProductController::class, 'store']);
         Route::post('/admin/products/{id}', [ProductController::class, 'update']);
         Route::delete('/admin/products/{id}', [ProductController::class, 'destroy']);
+
+        Route::get('/admin/orders', [AdminController::class, 'adminOrders']); // Use admin middleware if needed
+        Route::put('/admin/orders/{id}/status', [AdminController::class, 'updateOrderStatus']);
+
     });
 });

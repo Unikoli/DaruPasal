@@ -6,6 +6,11 @@ import Sidebar from "../components/SideBar";
 export default function Shop() {
   const [loading, setLoading] = useState(true);
 
+  const fetchedProucts=async ()=>{
+    const res=await fetch('http://localhost:8000/api/produts')
+    const result=res.json
+  }
+
   useEffect(() => {
     // Simulate loading delay for UX testing
     const timer = setTimeout(() => {

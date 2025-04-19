@@ -99,6 +99,7 @@ export default function Orders() {
           o.id === selectedOrder.id ? { ...o, status: updatedStatus } : o
         );
         setOrders(updated);
+        // console.log(orders.length)
         closeModal();
       } else toast.error(data.message || "Failed to update order.");
     } catch (err) {

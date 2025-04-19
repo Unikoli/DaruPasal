@@ -80,7 +80,7 @@ export default function Products() {
                 <tr key={product.id} className="border-t">
                   <td className="p-4">{product.name}</td>
                   <td className="p-4">Rs. {product.price}</td>
-                  <td className="p-4">{product.category?.name || "category name"}</td>
+                  <td className="p-4">{product.category?.category_name || "category name"}</td>
                   <td className="p-4 text-right space-x-2">
                     <button className="inline-flex items-center px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-100"
                         onClick={()=>navigate(`/admin/edit-product/${product.id}`)}

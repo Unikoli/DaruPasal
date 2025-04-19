@@ -1,53 +1,4 @@
-// src/pages/Login.jsx
-// import { motion } from "framer-motion"
-// import { Link } from "react-router-dom"
 
-// export default function Login() {
-//   return (
-//     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-amber-100 to-yellow-200">
-//       <motion.div
-//         initial={{ opacity: 0, y: 40 }}
-//         animate={{ opacity: 1, y: 0 }}
-//         transition={{ duration: 0.6 }}
-//         className="bg-white p-10 rounded-xl shadow-xl w-full max-w-md"
-//       >
-//         <h2 className="text-3xl font-bold mb-6 text-center text-red-700">Welcome Back 👋</h2>
-
-//         <form className="space-y-4">
-//           <input
-//             type="text"
-//             placeholder="Username"
-//             className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-400 transition"
-//           />
-//           <input
-//             type="email"
-//             placeholder="Email"
-//             className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-400 transition"
-//           />
-//           <input
-//             type="password"
-//             placeholder="Password"
-//             className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-400 transition"
-//           />
-
-//           <button
-//             type="submit"
-//             className="w-full bg-red-600 text-white py-3 rounded hover:bg-red-700 transition-all font-semibold"
-//           >
-//             Login
-//           </button>
-//         </form>
-
-//         <p className="text-center text-sm mt-6">
-//           Don’t have an account?{" "}
-//           <Link to="/signup" className="text-red-600 font-semibold hover:underline">
-//             Sign Up
-//           </Link>
-//         </p>
-//       </motion.div>
-//     </div>
-//   )
-// }
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -85,10 +36,8 @@ export default function Login() {
         setSuccess("Login successful!");
         localStorage.setItem("token", data.token); // store token if needed
         localStorage.setItem("user", JSON.stringify(data.user));
-        // setTimeout(() => {
-        //     navigate("/");
-        //     window.location.reload(); // 👈 Force reload after navigating
-        //   }, 2000); // redirect to homepage
+        localStorage.setItem('role',data.role);
+
 
         setTimeout(() => {
             if (data.user.role === "admin") {

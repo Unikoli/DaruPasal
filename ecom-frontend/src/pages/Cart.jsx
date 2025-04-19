@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { TrashIcon } from '@heroicons/react/24/outline';
 import Footer from '../components/Footer';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -15,6 +16,8 @@ const Cart = () => {
     fetchCart();
 
   }, []);
+  const token = localStorage.getItem('token');
+
 
   const fetchCart = async () => {
     const token = localStorage.getItem('token');
@@ -111,6 +114,15 @@ const Cart = () => {
   const total = Array.isArray(cartItems)
     ? cartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0)
     : 0;
+    const handleCheckoutbutton=()=>{
+      if(!token)
+      {
+        toast.error('please login to continue')
+      }
+      else{
+        navigate('/shipping-form')
+      }
+    }
 
   return (
     <>
@@ -223,7 +235,7 @@ const Cart = () => {
           </div>
           <button
             className="mt-6 w-full bg-red-700 text-white py-2 font-semibold"
-            onClick={() => navigate('/shipping-form')}
+            onClick={() => handleCheckoutbutton()}
           >
             PROCEED TO CHECKOUT →
           </button>

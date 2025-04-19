@@ -1,10 +1,12 @@
 
+import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import SummerProductList from "../components/SummerProductList";
 import WinterProductList from "../components/WinterProductList";
-// import ProductList from "../components/ProductList";
+
 
 export default function Home() {
+  const navigate=useNavigate();
     return (
         <>
         <div className="relative w-full h-screen">
@@ -23,7 +25,9 @@ export default function Home() {
           <p className="text-lg md:text-xl max-w-xl mb-8 drop-shadow-md">
             Your one-stop online destination for the finest liquors and spirits.
           </p>
-          <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg transition-all duration-300">
+          <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg transition-all duration-300"
+          onClick={()=>navigate('/shop')}
+          >
             Shop Now
           </button>
         </div>
@@ -31,10 +35,8 @@ export default function Home() {
         {/* Optional: Overlay Layer */}
         <div className="absolute inset-0 bg-black/50" />
       </div>
-      <h1>Summer Special</h1>
-      <SummerProductList/>
-      <h1>winter special</h1>
-      {/* <WinterProductList/> */}
+     <SummerProductList/>
+      <WinterProductList/>
       <Footer/>
         </>
       

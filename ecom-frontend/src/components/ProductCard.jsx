@@ -332,7 +332,7 @@ export default function ProductCard({ image, title, price, rating, reviews, prod
     const token = localStorage.getItem("token");
 
     if (!token) {
-      alert("Login required");
+      toast.error('please login to continue');
       return;
     }
 
@@ -380,25 +380,7 @@ export default function ProductCard({ image, title, price, rating, reviews, prod
       alert("Something went wrong.");
     }
   };
-  // const handleImageClick=async()=>{
-  //   const token = localStorage.getItem("token");
-
-  //   try {
-  //     const response = await fetch("http://localhost:8000/api/products/${id}", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //       body: JSON.stringify({
-  //         product_id: productId,
-  //         quantity: quantity,
-  //       }),
-  //     });
-  //   } catch (error) {
-      
-  //   }
-  // }
+  
 
   useEffect(() => {
     console.log("🔍 Loaded product:", product);

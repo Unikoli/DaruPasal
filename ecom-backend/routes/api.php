@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\EsewaController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ShippingController;
@@ -31,9 +32,14 @@ Route::post('login', [AuthController::class, 'login']);
 
 // Public routes
 Route::get('products', [ProductController::class, 'index']);
-Route::get('products/{id}', [ProductController::class, 'show']);
+Route::get('products/{id}', action: [ProductController::class, 'show']);
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/category/{id}/products', [ProductController::class, 'productsByCategory']);
+
+//contact us
+Route::get('/contact', [ContactController::class, 'index']);
+Route::post('/contact', [ContactController::class, 'store']);
+
 
 
 // Protected routes (authenticated)
@@ -56,6 +62,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //shipping information
     Route::get('/delivery-info', [ShippingController::class, 'index']);
     Route::post('/delivery-info', [ShippingController::class, 'store']);
+
 
      //order
      Route::get('/user/orders', [EsewaController::class, 'userOrders']);

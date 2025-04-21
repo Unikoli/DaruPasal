@@ -1,7 +1,56 @@
-import React from 'react';
-import { FaMapMarkerAlt, FaFax, FaEnvelope, FaUser, FaRegEnvelope, FaRegCommentDots } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { toast } from 'react-toastify';
+import {
+  FaMapMarkerAlt,
+  FaFax,
+  FaEnvelope,
+  FaUser,
+  FaRegEnvelope,
+  FaRegCommentDots
+} from 'react-icons/fa';
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch('http://localhost:8000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        toast.success("Message sent successfully!");
+        setFormData({ name: '', email: '', message: '' }); // Reset form
+      } else {
+        if (data.errors) {
+          Object.values(data.errors).forEach(errArr => {
+            toast.error(errArr[0]);
+          });
+        } else {
+          toast.error(data.message || "Something went wrong.");
+        }
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Network error. Please try again.");
+    }
+  };
+
   return (
     <div className="px-4 md:px-20 py-8">
       {/* Header */}
@@ -46,23 +95,49 @@ const Contact = () => {
             Your email address will not be published. Required fields are marked (<span className="text-red-600">*</span>)
           </p>
 
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="flex items-center border rounded px-3 py-2">
               <FaUser className="text-gray-400 mr-3" />
-              <input type="text" placeholder="Name" className="w-full outline-none" />
+              <input
+                type="text"
+                name="name"
+                placeholder="Name"
+                className="w-full outline-none"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
             </div>
 
             <div className="flex items-center border rounded px-3 py-2">
               <FaRegEnvelope className="text-gray-400 mr-3" />
-              <input type="email" placeholder="Email" className="w-full outline-none" />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                className="w-full outline-none"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
             </div>
 
             <div className="flex items-start border rounded px-3 py-2">
               <FaRegCommentDots className="text-gray-400 mr-3 mt-1" />
-              <textarea placeholder="Message" className="w-full outline-none resize-none h-32"></textarea>
+              <textarea
+                name="message"
+                placeholder="Message"
+                className="w-full outline-none resize-none h-32"
+                value={formData.message}
+                onChange={handleChange}
+                required
+              ></textarea>
             </div>
 
-            <button type="submit" className="bg-red-700 text-white px-6 py-2 rounded hover:bg-red-800 float-right">
+            <button
+              type="submit"
+              className="bg-red-700 text-white px-6 py-2 rounded hover:bg-red-800 float-right"
+            >
               SEND
             </button>
           </form>

@@ -1,6 +1,7 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -8,6 +9,8 @@ export default function Login() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
+  const token = localStorage.getItem("token");
+
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -19,6 +22,16 @@ export default function Login() {
     setSuccess("");
     setLoading(true);
 
+    if (token) {
+      setSuccess("ALREADY LOGGED IN! Please logout to continue.");
+      setLoading(false);
+      // Clear the message after 1 second
+      setTimeout(() => {
+        setSuccess("");
+      }, 2000);
+    
+      return;
+    }
     try {
       const response = await fetch("http://localhost:8000/api/login", {
         method: "POST",

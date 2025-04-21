@@ -11,7 +11,7 @@ export default function SummerProductList() {
   useEffect(() => {
     const fetchSummerProducts = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/category/2/products");
+        const response = await fetch("http://localhost:8000/api/category/1/products");
         const data = await response.json();
         setProducts(data || []);
       } catch (error) {

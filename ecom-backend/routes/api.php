@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\EsewaController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\ShippingController;
+use App\Models\ShippingInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -51,6 +53,10 @@ Route::middleware('auth:sanctum')->group(function () {
      Route::get('/esewa/success', [EsewaController::class, 'success'])->name('esewa.success');
      Route::get('/esewa/failure', [EsewaController::class, 'failure'])->name('esewa.failure');
  
+    //shipping information
+    Route::get('/delivery-info', [ShippingController::class, 'index']);
+    Route::post('/delivery-info', [ShippingController::class, 'store']);
+
      //order
      Route::get('/user/orders', [EsewaController::class, 'userOrders']);
 

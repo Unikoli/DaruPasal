@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class ShippingInfo extends Model
 {
     use HasFactory;
+    // ShippingInfo.php
+protected $fillable = [
+    'name', 'phone', 'email', 'province', 'city', 'fulladdress', 'user_id',
+];
+
 }

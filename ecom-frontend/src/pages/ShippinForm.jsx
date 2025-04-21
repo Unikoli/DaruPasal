@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 const ShippingForm = () => {
     const [cartItem, setCartItems] = useState([]);
     const [quantity, setQuantity] = useState(0);
 
-    const [formData, setFormData] = useState({
-        fullName: '',
-        phoneNumber: '',
+    const initialFormData = {
+        name: '',
+        phone: '',
         email: '',
         province: '',
         city: '',
-        address: ''
-    });
+        fulladdress: ''
+    };
+    
+    const [formData, setFormData] = useState(initialFormData);
+    
+    
 
     const token = localStorage.getItem('token');
 
@@ -52,17 +57,25 @@ const ShippingForm = () => {
 
     // Submit shipping form (optional backend use)
     const handleSubmit = async (e) => {
+        const token=localStorage.getItem('token');
         e.preventDefault();
         try {
-            const res = await fetch('http://your-api-url/shipping', {
+            const res = await fetch('http://localhost:8000/api/delivery-info', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(formData)
             });
             const data = await res.json();
             console.log('Shipping Info Submitted:', data);
+            console.log("hello")
+            if(res.ok)
+            {
+                toast.success("Shipping information added successfully!");
+                setFormData(initialFormData);
+            }
         } catch (error) {
             console.error('Error:', error);
         }
@@ -199,7 +212,7 @@ const handleEsewaPayment = async () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <input
                         type="text"
-                        name="fullName"
+                        name="name"
                         placeholder="Full Name"
                         className="border p-2 w-full"
                         onChange={handleChange}
@@ -207,7 +220,7 @@ const handleEsewaPayment = async () => {
                     />
                     <input
                         type="text"
-                        name="phoneNumber"
+                        name="phone"
                         placeholder="Phone Number"
                         className="border p-2 w-full"
                         onChange={handleChange}
@@ -239,7 +252,7 @@ const handleEsewaPayment = async () => {
                     />
                     <input
                         type="text"
-                        name="address"
+                        name="fulladdress"
                         placeholder="For Example: House# 123, Street# 123, ABC Road"
                         className="border p-2 w-full"
                         onChange={handleChange}

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('province')->nullable();
             $table->string('city')->nullable();
             $table->string('fulladdress')->nullable();
+            $table->foreignId('user_id')->constrained()->nullable()->onDelete('cascade');
             $table->timestamps();
         });
     }

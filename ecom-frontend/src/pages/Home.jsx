@@ -2,7 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import SummerProductList from "../components/SummerProductList";
-// import WinterProductList from "../components/WinterProductList";
+import WinterProductList from "../components/WinterProductList";
 
 
 export default function Home() {
@@ -36,7 +36,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/50" />
       </div>
      <SummerProductList/>
-      {/* <WinterProductList/> */}
+      <WinterProductList/>
       <Footer/>
         </>
       

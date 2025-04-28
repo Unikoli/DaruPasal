@@ -26,6 +26,7 @@ import PaymentSuccess from "./pages/Paymentsuccess";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import Protectedroute from "./Protectedroute";
 import PaymentFailure from "./pages/Paymentfailure";
+import UserOrder from "./pages/UserOrders";
 
 export default function App() {
   return (
@@ -131,6 +132,15 @@ export default function App() {
             <>
               <Navbar />
               <ProductDetails />
+            </>
+          }
+        />
+         <Route
+          path="/user/orders"
+          element={
+            <>
+              <Navbar />
+              <UserOrder />
             </>
           }
         />

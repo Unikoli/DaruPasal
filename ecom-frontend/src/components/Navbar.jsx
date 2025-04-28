@@ -30,7 +30,7 @@ export default function Navbar() {
         },
       });
 
-      
+
       if (res.ok) {
         toast.error('logged out!')
         localStorage.removeItem("token");
@@ -45,6 +45,24 @@ export default function Navbar() {
       console.error("Logout error:", error);
     }
   };
+  // const handleOrderHistory = async () => {
+
+  //   const token = localStorage.getItem("login");
+  //   const res = await fetch("http://localhost:8000/api/user/orders",
+  //     {
+  //       method: GET,
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //         Accept: "application/json",
+  //       },
+  //     }
+
+  //   );
+  //   if (res.ok) {
+  //     navigate('/user/orders');
+  //   }
+
+  // }
 
   const isActive = (path) =>
     location.pathname === path ? "text-red-500 border-b-2 border-red-500" : "hover:text-red-500";
@@ -87,23 +105,32 @@ export default function Navbar() {
           {dropdownOpen && (
             <div className="absolute right-0 mt-2 bg-white border rounded shadow-md p-2 w-36 z-50">
               {user ? (
-                <button
-                  onClick={handleLogout}
-                  className="block w-full text-left px-4 py-2 hover:bg-red-100 text-red-600"
-                >
-                  Sign Out
-                </button>
-              ) : (
-                <button
-                  onClick={() => {
-                    setDropdownOpen(false);
-                    navigate("/login");
-                  }}
-                  className="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                >
-                  Login
-                </button>
-              )}
+                <>
+                  <button
+                    onClick={()=>navigate("/user/orders")}
+                    className="block w-full text-left px-4 py-2 hover:bg-red-100 text-red-600"
+                  >
+                    Order History
+                  </button>
+                  <button
+                    onClick={handleLogout}
+                    className="block w-full text-left px-4 py-2 hover:bg-red-100 text-red-600"
+                  >
+                    Sign Out
+                  </button>
+                </>
+              )
+                : (
+                  <button
+                    onClick={() => {
+                      setDropdownOpen(false);
+                      navigate("/login");
+                    }}
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                  >
+                    Login
+                  </button>
+                )}
             </div>
           )}
         </div>

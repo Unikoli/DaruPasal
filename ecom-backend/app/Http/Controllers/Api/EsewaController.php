@@ -179,11 +179,12 @@ class EsewaController extends Controller
             ->with(['items.product', 'payment'])
             ->latest()
             ->get();
+        
 
         return response()->json([
             'success' => true,
             'message' => 'Fetched your orders.',
-            'data' => $orders
+            'orders' => $orders
         ]);
     }
 }

@@ -45,24 +45,7 @@ export default function Navbar() {
       console.error("Logout error:", error);
     }
   };
-  // const handleOrderHistory = async () => {
-
-  //   const token = localStorage.getItem("login");
-  //   const res = await fetch("http://localhost:8000/api/user/orders",
-  //     {
-  //       method: GET,
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //         Accept: "application/json",
-  //       },
-  //     }
-
-  //   );
-  //   if (res.ok) {
-  //     navigate('/user/orders');
-  //   }
-
-  // }
+ 
 
   const isActive = (path) =>
     location.pathname === path ? "text-red-500 border-b-2 border-red-500" : "hover:text-red-500";
@@ -90,8 +73,8 @@ export default function Navbar() {
         <FiHeart className="cursor-pointer" />
         <div className="relative">
           <FiShoppingBag className="cursor-pointer" />
-          <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-            3
+          <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center" onClick={()=>navigate('/cart')}>
+            2
           </span>
         </div>
 

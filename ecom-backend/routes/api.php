@@ -39,6 +39,8 @@ Route::get('/category/{id}/products', [ProductController::class, 'productsByCate
 //contact us
 Route::get('/contact', [ContactController::class, 'index']);
 Route::post('/contact', [ContactController::class, 'store']);
+  Route::get('/esewa/success', [EsewaController::class, 'success'])->name('esewa.success');
+     Route::get('/esewa/failure', [EsewaController::class, 'failure'])->name('esewa.failure');
 
 
 
@@ -56,9 +58,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
      //esewa payment
      Route::post('/esewa/prepare', [EsewaController::class, 'preparePayment']);
-     Route::get('/esewa/success', [EsewaController::class, 'success'])->name('esewa.success');
-     Route::get('/esewa/failure', [EsewaController::class, 'failure'])->name('esewa.failure');
- 
+   
+    //  Route::match(['get', 'post'], '/esewa/prepare', [EsewaController::class, 'preparePayment'])->name('esewa.prepare');
+
+
     //shipping information
     Route::get('/delivery-info', [ShippingController::class, 'index']);
     Route::post('/delivery-info', [ShippingController::class, 'store']);

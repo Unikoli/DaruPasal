@@ -530,7 +530,7 @@ export default function Shop() {
 
 
               {/* Alcohol Content */}
-              <div>
+              {/* <div>
                 <label className="block text-sm mb-1">Alcohol Content:</label>
                 <input
                   type="number"
@@ -540,7 +540,7 @@ export default function Shop() {
                   className="w-full border px-2 py-1 rounded"
                   placeholder="e.g. 5"
                 />
-              </div>
+              </div> */}
 
               {/* Price Range */}
               <div>

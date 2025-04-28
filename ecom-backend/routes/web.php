@@ -31,11 +31,11 @@ Route::get('/esewa', function () {
 use App\Http\Controllers\EsewaController;
 use App\Http\Controllers\EsewaPaymentController;
 
-Route::get('/esewa/pay', [EsewaPaymentController::class, 'showPaymentPage'])->name('pay');
-Route::post('/esewa/prepare', [EsewaPaymentController::class, 'preparePayment'])->name('prepare');
-Route::post('/esewa/redirect', [EsewaPaymentController::class, 'redirectToEsewa'])->name('esewa.redirect');
-Route::get('/esewa/success', [EsewaPaymentController::class, 'success'])->name('esewa.success');
-Route::get('/esewa/failure', [EsewaPaymentController::class, 'failure'])->name('esewa.failure');
+// Route::get('/esewa/pay', [EsewaPaymentController::class, 'showPaymentPage'])->name('pay');
+// Route::post('/esewa/prepare', [EsewaPaymentController::class, 'preparePayment'])->name('prepare');
+// Route::post('/esewa/redirect', [EsewaPaymentController::class, 'redirectToEsewa'])->name('esewa.redirect');
+// Route::get('/esewa/success', [EsewaPaymentController::class, 'success'])->name('esewa.success');
+// Route::get('/esewa/failure', [EsewaPaymentController::class, 'failure'])->name('esewa.failure');
 
 // Route::get('/esewa/success', [\App\Http\Controllers\Api\EsewaController::class, 'success'])->name('esewa.success');
 // Route::get('/esewa/failure', [\App\Http\Controllers\Api\EsewaController::class, 'failure'])->name('esewa.failure');

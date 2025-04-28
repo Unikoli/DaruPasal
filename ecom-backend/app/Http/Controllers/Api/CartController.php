@@ -13,32 +13,8 @@ class CartController extends Controller
     {
         return response()->json(ShoppingCart::where('user_id', Auth::id())->with('product')->get());
     }
-    // public function store(Request $request)
-
-    // {
-    //     $request->validate([
-    //         'product_id' => 'required|exists:products,id',
-    //         'quantity' => 'required|integer|min:1'
-    //     ]);
-
-    //     $cart = ShoppingCart::updateOrCreate(
-    //         ['user_id' => Auth::id(), 'product_id' => $request->product_id],
-    //         ['quantity' => $request->quantity]
-    //     );
-    //     if($cart->save())
-    //     {
-    //         return response()->json(['message' => 'Added to cart', 'cart' => $cart]);
-
-    //     }
-    //     else
-    //     {
-    //         return response()->json([
-    //             'message' => 'cannot add to the cart', 'cart' => $cart
-    //         ]);
-
-    //     }
-
-    // }
+   
+   
     public function store(Request $request)
     {
         $request->validate([

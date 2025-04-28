@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiCheckCircle } from "react-icons/fi";
+import ReCAPTCHA from "react-google-recaptcha";
+import config from "../config";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -8,6 +10,8 @@ export default function Signup() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState("");
+
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -26,7 +30,9 @@ export default function Signup() {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({...formData,
+          recaptcha_token: recaptchaToken,
+        }),
       });
 
       const data = await response.json();
@@ -34,7 +40,7 @@ export default function Signup() {
 
       if (response.ok) {
         setSuccess("User registered successfully!");
-        setTimeout(() => navigate("/login"), 2000); // Redirect after 2s
+        setTimeout(() => navigate("/login"), 1000); // Redirect after 2s
       } else {
         setError(data.message || "Registration failed");
       }
@@ -95,6 +101,9 @@ export default function Signup() {
           className="w-full border border-gray-300 rounded px-4 py-2 focus:ring-2 focus:ring-red-400"
           required
         />
+         <div className="mb-4">
+                    <ReCAPTCHA sitekey={config.RECAPTCHA_SITEKEY} onChange={(value) => setRecaptchaToken(value)} />
+                </div>
         <button
           type="submit"
           className={`w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded transition duration-300 ${

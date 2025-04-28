@@ -6,32 +6,12 @@ export default function PaymentSuccess() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const dataParam = searchParams.get("data");
+    
+    toast.success('Payment succcessfull!');
+    setTimeout(() => {
+      navigate('/shop');
+    }, 1000);
 
-    if (!dataParam) {
-      toast.error("Missing payment data.");
-      return;
-    }
-
-    const verifyPayment = async () => {
-      try {
-        const res = await fetch(`http://localhost:8000/api/payment/success?data=${dataParam}`);
-        const result = await res.json();
-
-        if (result.success) {
-          toast.success("🎉 Payment Successful!");
-          setTimeout(() => navigate("/shop"), 3000); // Redirect after 3 seconds
-        } else {
-          toast.error(result.message || "Payment verification failed.");
-        }
-      } catch (err) {
-        console.error(err);
-        toast.error("An error occurred during verification.");
-      }
-    };
-
-    verifyPayment();
   }, [navigate]);
 
   return (

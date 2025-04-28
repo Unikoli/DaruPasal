@@ -83,10 +83,7 @@ const ProductDetails = () => {
     }
   };
 
-  // const handleBuyNow = () => {
-  //   toast.info("Redirecting to checkout...");
-  //   navigate("/shipping-form");
-  // };
+
 
   if (loading) return <div className="text-center py-10">Loading...</div>;
   if (!product) return <div className="text-center py-10">Product not found.</div>;
@@ -121,10 +118,10 @@ const ProductDetails = () => {
             </tr>
           </thead>
           <tbody>
-            <tr><td className="p-2 border-b">Volume</td><td className="p-2 border-b">{product.volume || "650ml"}</td></tr>
+            <tr><td className="p-2 border-b">Volume</td><td className="p-2 border-b">{product.volume || "650ml"}ml</td></tr>
             <tr><td className="p-2 border-b">Category</td><td className="p-2 border-b">{product.category?.category_name || "Beer / Domestic Beer"}</td></tr>
             <tr><td className="p-2 border-b">Country</td><td className="p-2 border-b">{product.country || "Nepal"}</td></tr>
-            <tr><td className="p-2">Alcohol</td><td className="p-2">{product.alcohol_content || "6%"}</td></tr>
+            <tr><td className="p-2">Alcohol</td><td className="p-2">{product.alcohol || "6%"}%</td></tr>
           </tbody>
         </table>
 

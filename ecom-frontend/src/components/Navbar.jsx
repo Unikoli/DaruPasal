@@ -3,6 +3,7 @@
 import { FiSearch, FiUser, FiHeart, FiShoppingBag } from "react-icons/fi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export default function Navbar() {
   const location = useLocation();
@@ -31,6 +32,7 @@ export default function Navbar() {
 
       
       if (res.ok) {
+        toast.error('logged out!')
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         setUser(null);

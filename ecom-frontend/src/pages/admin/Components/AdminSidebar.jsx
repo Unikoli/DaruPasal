@@ -17,7 +17,7 @@ export default function AdminSidebar() {
     <>
       {/* Mobile Top Bar */}
       <div className="md:hidden flex items-center justify-between bg-red-700 text-white p-4">
-        <h1 className="text-xl font-bold">🍷 Daru Pasal Admin</h1>
+        <h1 className="text-xl font-bold">🍷 E-liquor Admin</h1>
         <button onClick={() => setOpen(!open)}>
           <Menu />
         </button>
@@ -35,7 +35,7 @@ export default function AdminSidebar() {
   } md:static md:h-auto`}
 >
 
-        <h1 className="text-2xl font-bold mb-10 hidden md:block">🍷 Daru Pasal Admin</h1>
+        <h1 className="text-2xl font-bold mb-10 hidden md:block">🍷 E-liquor Admin</h1>
         <nav className="space-y-3">
           {menuItems.map((item) => (
             <Link

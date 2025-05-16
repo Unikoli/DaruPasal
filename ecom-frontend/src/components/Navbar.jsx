@@ -55,7 +55,7 @@ export default function Navbar() {
       {/* Logo */}
       <div className="flex items-center space-x-2">
         <img src="/darupasal_image.png" alt="Logo" className="w-12 h-12 rounded-full" />
-        <span className="text-xl font-bold">Daru Pasal</span>
+        <span className="text-xl font-bold">E-liquor</span>
       </div>
 
       {/* Nav */}

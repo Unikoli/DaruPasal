@@ -76,9 +76,7 @@ php artisan db:seed
 # Run the development server
 php artisan serve
 💻 Frontend Setup
-bash
-Copy
-Edit
+
 cd ecom-frontend
 
 # Install JS dependencies

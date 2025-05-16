@@ -8,12 +8,6 @@ A full-stack e-commerce web application with a Laravel-powered backend and a mod
 ├── ecom-backend # Laravel-based backend API
 ├── ecom-frontend # Vite + TailwindCSS-based frontend
 
-yaml
-Copy
-Edit
-
----
-
 ## 🚀 Features
 
 - 🔐 User authentication and authorization

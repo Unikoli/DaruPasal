@@ -53,7 +53,7 @@ export default function WinterProductList() {
   useEffect(() => {
     const fetchWinterProducts = async () => {
       try {
-        const response = await fetch(`${config.API_URL}/api/category/4/products`); // Category ID 6 for winter
+        const response = await fetch(`${config.API_URL}/api/category/2/products`); // Category ID 6 for winter
         const data = await response.json();
         setProducts(data || []);
       } catch (error) {

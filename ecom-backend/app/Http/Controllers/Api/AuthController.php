@@ -56,32 +56,32 @@ class AuthController extends Controller
         $validatedData = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
-            'recaptcha_token' => ['required']
+            // 'recaptcha_token' => ['required']
         ]);
 
         // Verify reCAPTCHA
-        $response = Http::asForm()->post(env("GOOGLE_RECAPTCHA_URL"), [
-            'secret' => env("GOOGLE_RECAPTCHA_SECRET"),
-            'response' => $request->recaptcha_token,
-            'remoteip' => $request->ip(),
-        ]);
+        // $response = Http::asForm()->post(env("GOOGLE_RECAPTCHA_URL"), [
+        //     'secret' => env("GOOGLE_RECAPTCHA_SECRET"),
+        //     'response' => $request->recaptcha_token,
+        //     'remoteip' => $request->ip(),
+        // ]);
 
         // Log the response for debugging
-        Log::info('reCAPTCHA env', [
-            'url' => env('GOOGLE_RECAPTCHA_URL'),
-            'secret' => env('GOOGLE_RECAPTCHA_SECRET'),
-        ]);
+        // Log::info('reCAPTCHA env', [
+        //     'url' => env('GOOGLE_RECAPTCHA_URL'),
+        //     'secret' => env('GOOGLE_RECAPTCHA_SECRET'),
+        // ]);
         
-        $data = $response->json();
+        // $data = $response->json();
 
         // Ensure $data is an array before logging
-        Log::info('reCAPTCHA response:', is_array($data) ? $data : ['response' => $data]);
+        // Log::info('reCAPTCHA response:', is_array($data) ? $data : ['response' => $data]);
 
 
         // Check if $data is null or if 'success' is not set
-        if (!$data || !isset($data['success']) || !$data['success']) {
-            return response()->json(['message' => 'reCAPTCHA verification failed.',], 422);
-        }
+        // if (!$data || !isset($data['success']) || !$data['success']) {
+        //     return response()->json(['message' => 'reCAPTCHA verification failed.',], 422);
+        // }
 
         if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json(['message' => 'Invalid credentials'], 401);

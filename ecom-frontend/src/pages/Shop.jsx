@@ -387,6 +387,7 @@ import Footer from "../components/Footer";
 import ProductList from "../components/ProductList";
 import Sidebar from "../components/SideBar";
 import { useLocation, useNavigate } from "react-router-dom"; // Updated import here
+import API_URL from "../config";
 
 export default function Shop() {
   const [loading, setLoading] = useState(true);
@@ -408,7 +409,7 @@ export default function Shop() {
   // Fetch Products, Categories, and Countries
   useEffect(() => {
     const fetchCategories = async () => {
-      const response = await fetch("http://localhost:8000/api/categories");
+      const response = await fetch(`${API_URL}/api/categories`);
       const data = await response.json();
       setCategories(data);
     };
@@ -421,7 +422,7 @@ export default function Shop() {
 
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/products");
+        const response = await fetch(`${API_URL}/api/products`);
         const data = await response.json();
         setAllProducts(data);
         setFilteredProducts(data);

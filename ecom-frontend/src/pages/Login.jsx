@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import config from "../config";
 import ReCAPTCHA from "react-google-recaptcha";
-import API_URL from "../config";
 
 export default function Login() {
   const navigate = useNavigate();

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import config from "../config";
 import ReCAPTCHA from "react-google-recaptcha";
+import API_URL from "../config";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ export default function Login() {
       return;
     }
     try {
-      const response = await fetch("http://localhost:8000/api/login", {
+      const response = await fetch(`${API_URL}/api/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

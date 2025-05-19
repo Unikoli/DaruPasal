@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FiCheckCircle } from "react-icons/fi";
 import ReCAPTCHA from "react-google-recaptcha";
 import config from "../config";
+import API_URL from "../config";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ export default function Signup() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8000/api/register", {
+      const response = await fetch(`${API_URL}/api/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

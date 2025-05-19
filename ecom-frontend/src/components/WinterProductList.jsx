@@ -44,6 +44,7 @@ import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import { productSliderSettings } from "./SliderSetting";
 import ProductCard from "./ProductCard";
+import config from "../config";
 
 export default function WinterProductList() {
   const [products, setProducts] = useState([]);
@@ -52,7 +53,7 @@ export default function WinterProductList() {
   useEffect(() => {
     const fetchWinterProducts = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/category/4/products"); // Category ID 6 for winter
+        const response = await fetch(`${config.API_URL}/api/category/4/products`); // Category ID 6 for winter
         const data = await response.json();
         setProducts(data || []);
       } catch (error) {
@@ -78,7 +79,7 @@ export default function WinterProductList() {
           {products.map((product) => (
             <div key={product.id} className="px-2">
               <ProductCard
-                image={`http://localhost:8000/${product.image_url}`}
+                image={`${config.API_URL}/${product.image_url}`}
                 title={product.name}
                 price={product.price}
                 rating={product.rating || 4}

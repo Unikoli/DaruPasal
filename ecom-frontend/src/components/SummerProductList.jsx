@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import { productSliderSettings } from "./SliderSetting";
 import ProductCard from "./ProductCard";
+import config from "../config";
 
 export default function SummerProductList() {
   const [products, setProducts] = useState([]);
@@ -11,7 +12,7 @@ export default function SummerProductList() {
   useEffect(() => {
     const fetchSummerProducts = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/category/1/products");
+        const response = await fetch(`${config.API_URL}/api/category/1/products`);
         const data = await response.json();
         setProducts(data || []);
       } catch (error) {
@@ -37,7 +38,7 @@ export default function SummerProductList() {
           {products.map((product) => (
             <div key={product.id} className="px-2">
               <ProductCard
-                image={`http://localhost:8000/${product.image_url}`}
+                image={`${config.API_URL}/${product.image_url}`}
                 title={product.name}
                 price={product.price}
                 rating={product.rating || 4}

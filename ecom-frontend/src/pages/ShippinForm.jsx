@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import config from '../config';
 
 const ShippingForm = () => {
     const [cartItem, setCartItems] = useState([]);
@@ -28,7 +29,7 @@ const ShippingForm = () => {
     // Fetch cart from API
     const fetchCart = async () => {
         try {
-            const response = await fetch('http://localhost:8000/api/cart', {
+            const response = await fetch(`${config.API_URL}/api/cart`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -60,7 +61,7 @@ const ShippingForm = () => {
         const token=localStorage.getItem('token');
         e.preventDefault();
         try {
-            const res = await fetch('http://localhost:8000/api/delivery-info', {
+            const res = await fetch(`${config.API_URL}/api/delivery-info`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -147,7 +148,7 @@ const handleEsewaPayment = async () => {
 
         console.log("Sending payload to eSewa:", cartPayload); // Log the payload for debugging
 
-        const response = await fetch('http://localhost:8000/api/esewa/prepare', {
+        const response = await fetch(`${config.API_URL}/api/esewa/prepare`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

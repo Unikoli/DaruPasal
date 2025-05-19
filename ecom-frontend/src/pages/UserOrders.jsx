@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import config from "../config";
 
 export default function UserOrder() {
   const [orders, setOrders] = useState([]);
@@ -7,7 +8,7 @@ export default function UserOrder() {
     const token = localStorage.getItem("token");
 
     try {
-      const res = await fetch("http://localhost:8000/api/user/orders", {
+      const res = await fetch(`${config.API_URL}/api/user/orders`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,

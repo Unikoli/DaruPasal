@@ -3,6 +3,7 @@ import { TrashIcon } from '@heroicons/react/24/outline';
 import Footer from '../components/Footer';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import config from '../config';
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const Cart = () => {
     const token = localStorage.getItem('token');
 
     try {
-      const response = await fetch('http://localhost:8000/api/cart', {
+      const response = await fetch(`${config.API_URL}/api/cart`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -51,7 +52,7 @@ const Cart = () => {
     const token = localStorage.getItem('token');
 
     try {
-      const response = await fetch('http://localhost:8000/api/cart/clear', {
+      const response = await fetch(`${config.API_URL}/api/cart/clear`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -77,7 +78,7 @@ const Cart = () => {
     const token = localStorage.getItem('token');
 
     try {
-      await fetch(`http://localhost:8000/api/cart/${id}`, {
+      await fetch(`${config.API_URL}/api/cart/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -95,7 +96,7 @@ const Cart = () => {
     const token = localStorage.getItem('token');
 
     try {
-      await fetch(`http://localhost:8000/api/cart/${id}`, {
+      await fetch(`${config.API_URL}/api/cart/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -152,7 +153,7 @@ const Cart = () => {
                     <td className="p-2">
                       {item.product?.image_url && (
                         <img
-                          src={`http://localhost:8000/${item.product.image_url}`}
+                          src={`${config.API_URL}/${item.product.image_url}`}
                           alt={item.product.name}
                           className="h-32 mx-auto object-contain"
                         />

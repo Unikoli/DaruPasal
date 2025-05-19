@@ -52,6 +52,7 @@
 //     </div>
 //   );
 // }
+import config from "../config";
 import ProductCard from "./ProductCard";
 
 export default function ProductList({ products = [] }) {
@@ -63,7 +64,7 @@ export default function ProductList({ products = [] }) {
         products.map((product) => (
           <ProductCard
             key={product.id}
-            image={`http://localhost:8000/${product.image_url}`}
+            image={`${config.API_URL}/${product.image_url}`}
             title={product.name}
             price={product.price}
             rating={product.rating || 4}

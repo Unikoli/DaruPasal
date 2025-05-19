@@ -6,6 +6,7 @@ import { FiMinus, FiPlus, FiShoppingCart } from "react-icons/fi";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import config from "../config";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -18,7 +19,7 @@ const ProductDetails = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await fetch(`http://localhost:8000/api/products/${id}`);
+        const res = await fetch(`${config.API_URL}/api/products/${id}`);
         const data = await res.json();
         setProduct(data);
       } catch (err) {
@@ -50,7 +51,7 @@ const ProductDetails = () => {
     setAddingToCart(true);
 
     try {
-      const response = await fetch("http://localhost:8000/api/cart", {
+      const response = await fetch(`${config.API_URL}/api/cart`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -92,7 +93,7 @@ const ProductDetails = () => {
     <div className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-2 gap-10">
       <div className="flex justify-center items-start">
         <img
-          src={`http://localhost:8000/${product.image_url}`} // Adjust as needed
+          src={`${config.API_URL}/${product.image_url}`} // Adjust as needed
           alt={product.name}
           className="w-80 h-auto shadow-xl"
         />

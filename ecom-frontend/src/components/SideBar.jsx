@@ -5,6 +5,7 @@ import { FaBars } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import config from "../config";
 
 export default function Sidebar() {
   const [categories, setCategories] = useState([]);
@@ -20,7 +21,7 @@ export default function Sidebar() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await fetch("http://localhost:8000/api/categories");
+        const res = await fetch(`${config.API_URL}/api/categories`);
         const data = await res.json();
         setCategories(data);
       } catch (err) {
@@ -35,7 +36,7 @@ export default function Sidebar() {
     const fetchProductCategory = async () => {
       if (location.pathname.startsWith("/product/")) {
         try {
-          const res = await fetch(`http://localhost:8000/api/products/${productId}`);
+          const res = await fetch(`${config.API_URL}/api/products/${productId}`);
           const data = await res.json();
           setSelectedCategory(data.category_id);
           if (!products[data.category_id]) {
@@ -53,7 +54,7 @@ export default function Sidebar() {
   // Fetch products under a category
   const fetchProductsByCategory = async (categoryId) => {
     try {
-      const res = await fetch(`http://localhost:8000/api/category/${categoryId}/products`);
+      const res = await fetch(`${config.API_URL}/api/category/${categoryId}/products`);
       const data = await res.json();
       setProducts((prev) => ({ ...prev, [categoryId]: data }));
     } catch (err) {

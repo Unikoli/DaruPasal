@@ -318,6 +318,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify"; // Importing toastify for toast notifications
 import "react-toastify/dist/ReactToastify.css"; // Importing styles for toastify
+import config from "../config";
 
 export default function ProductCard({ image, title, price, rating, reviews, product }) {
   const navigate = useNavigate();
@@ -342,7 +343,7 @@ export default function ProductCard({ image, title, price, rating, reviews, prod
     }
 
     try {
-      const response = await fetch("http://localhost:8000/api/cart", {
+      const response = await fetch(`${config.API_URL}/api/cart`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

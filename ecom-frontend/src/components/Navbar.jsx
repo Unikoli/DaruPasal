@@ -4,6 +4,7 @@ import { FiSearch, FiUser, FiHeart, FiShoppingBag } from "react-icons/fi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import config from "../config";
 
 export default function Navbar() {
   const location = useLocation();
@@ -22,7 +23,7 @@ export default function Navbar() {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch("http://localhost:8000/api/logout", {
+      const res = await fetch(`${config.API_URL}/api/logout`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

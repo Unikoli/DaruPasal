@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { toast } from "react-toastify";
 import { exportOrdersToExcel } from "../../../utils/exportUtils";
+import config from "../../../config";
 
 
 Modal.setAppElement("#root");
@@ -21,7 +22,7 @@ export default function Orders() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await fetch("http://localhost:8000/api/admin/orders", {
+        const res = await fetch(`${config.API_URL}/api/admin/orders`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -83,7 +84,7 @@ export default function Orders() {
 
   const handleStatusUpdate = async () => {
     try {
-      const res = await fetch(`http://localhost:8000/api/admin/orders/${selectedOrder.id}/status`, {
+      const res = await fetch(`${config.API_URL}/api/admin/orders/${selectedOrder.id}/status`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

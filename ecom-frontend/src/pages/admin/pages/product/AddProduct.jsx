@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import config from "../../../../config";
 
 export default function AddProduct() {
   const [formData, setFormData] = useState({
@@ -25,7 +26,7 @@ export default function AddProduct() {
     const fetchCategories = async () => {
         console.log(token)
       try {
-        const res = await fetch("http://localhost:8000/api/categories", {
+        const res = await fetch(`${config.API_URL}/api/categories`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -80,7 +81,7 @@ const handleSubmit = async (e) => {
     formDataToSend.append("image_url", image_url);
   
     try {
-      const res = await fetch("http://localhost:8000/api/admin/products", {
+      const res = await fetch(`${config.API_URL}/api/admin/products`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

@@ -1,5 +1,6 @@
 
 import React, { useEffect, useState } from "react";
+import config from "../../config";
 
 export default function AdminDashboard() {
   const [products, setProducts] = useState([]);
@@ -20,9 +21,9 @@ export default function AdminDashboard() {
         };
 
         const [productsRes, categoriesRes, ordersRes] = await Promise.all([
-          fetch("http://localhost:8000/api/products", { headers }),
-          fetch("http://localhost:8000/api/categories", { headers }),
-          fetch("http://localhost:8000/api/admin/orders", { headers }),
+          fetch(`${config.API_URL}/api/products`, { headers }),
+          fetch(`${config.API_URL}/api/categories`, { headers }),
+          fetch(`${config.API_URL}/api/admin/orders`, { headers }),
         ]);
 
         // Check if the responses are okay before parsing

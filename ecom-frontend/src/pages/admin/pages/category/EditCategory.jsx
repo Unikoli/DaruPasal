@@ -67,6 +67,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import config from '../../../../config';
 
 function EditCategory() {
   const { id } = useParams();
@@ -100,7 +101,7 @@ function EditCategory() {
     e.preventDefault();
 
     try {
-      const res = await fetch(`http://localhost:8000/api/admin/categories/${id}`, {
+      const res = await fetch(`${config.API_URL}/api/admin/categories/${id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Plus, Edit, Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import config from "../../../config";
 
 
 export default function Products() {
@@ -11,7 +12,7 @@ export default function Products() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch("http://localhost:8000/api/products");
+        const res = await fetch(`${config.API_URL}/api/products`);
         const data = await res.json();
         console.log(data);
         setProducts(data);
@@ -24,7 +25,7 @@ export default function Products() {
   const handleDeleteProduct =async(id)=>{
     const token=localStorage.getItem('token');
     try {
-        const res=await fetch(`http://localhost:8000/api/admin/products/${id}`,{
+        const res=await fetch(`${config.API_URL}/api/admin/products/${id}`,{
             method:'DELETE',
             headers: {
                 "Content-Type": "application/json",

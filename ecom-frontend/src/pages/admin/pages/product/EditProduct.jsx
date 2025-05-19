@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import config from "../../../../config";
 
 export default function EditProduct() {
   const { id } = useParams();
@@ -121,7 +122,7 @@ export default function EditProduct() {
     setLoading(true);
 
     try {
-      const res = await fetch(`http://localhost:8000/api/admin/products/${id}`, {
+      const res = await fetch(`${config.API_URL}/api/admin/products/${id}`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

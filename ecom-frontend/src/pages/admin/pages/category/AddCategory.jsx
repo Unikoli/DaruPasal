@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import config from "../../../../config";
 
 export default function AddCategory() {
   const [category_name, setCategoryName] = useState("");
@@ -9,7 +10,7 @@ export default function AddCategory() {
 
     const token = localStorage.getItem("token");
     try {
-      const res = await fetch("http://localhost:8000/api/admin/categories", {
+      const res = await fetch(`${config.API_URL}/api/admin/categories`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

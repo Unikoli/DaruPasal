@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Edit, Plus, Trash2 } from "lucide-react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import config from "../../../config";
 
 export default function Categories() {
     const [categories, setCategories] = useState([]);
@@ -14,7 +15,7 @@ export default function Categories() {
 
     const fetchCategories = async () => {
         try {
-            const res = await fetch("http://localhost:8000/api/categories");
+            const res = await fetch(`${config.API_URL}/api/categories`);
             const data = await res.json();
             setCategories(data);
         } catch (err) {
@@ -24,7 +25,7 @@ export default function Categories() {
     const handleDeleteCategory = async (id) => {
         const token = localStorage.getItem('token');
         try {
-            const res = await fetch(`http://localhost:8000/api/admin/categories/${id}`, {
+            const res = await fetch(`${config.API_URL}/api/admin/categories/${id}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
